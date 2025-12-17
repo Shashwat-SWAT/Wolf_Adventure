@@ -4,14 +4,21 @@ class wolf:
     def __init__(self):
         self._hp = 10 # wolf's hit points.
 
+    def wolf_fang_passive_damage(self):
+        # I am thinking of adding some buff for the attack
+        pass
+
     def attack(self):
         crit_chance = random.randint(1,10) # Probability: out of 10
-        atk_dmg = random.randint(3,5)
+        atk_dmg = random.randint(4,6)
+        crit_dmg = 0
 
-        if crit_chance >= 9: # 20% probability
-            atk_dmg = atk_dmg + ((atk_dmg * 40)//100) # 40% crit dmg
+        if crit_chance >= 5: # 60% probability
+            crit_dmg = ((atk_dmg * 40)//100) # 40% crit dmg
+        
+        atk_dmg = atk_dmg + crit_dmg
 
-        return atk_dmg
+        return atk_dmg, crit_dmg
     
     def dodge_n_attack(self):
         dodge_chances = random.choice([True,False]) # 50% probability
@@ -32,4 +39,37 @@ class wolf:
 class adventurer:
 
     def __init__(self):
+        self._hp = 25 # Player's hit points
+    '''
+        # This is something i will integra
+        self._shield_hp = 10
+        self._sword_hp = 10
+
+    '''
+
+    def good_sword_dmg_buff(self):
         pass
+
+    def attack(self):
+        crit_chance = random.randint(1,10) # Probability: out of 10
+        atk_dmg = random.randint(2,4)
+        crit_dmg = 0
+
+        if crit_chance >= 9: # 20% probability
+            crit_dmg = ((atk_dmg * 60)//100) # 60% crit dmg
+        
+        atk_dmg = atk_dmg + crit_dmg
+
+        return atk_dmg, crit_dmg
+    
+    def shield(self):
+        shield = random.choice([True,False]) # 50% probability
+        dmg_shielded = 0
+
+        if shield == False: # didn't dodge
+            dmg_shielded = 0
+        
+        else: # dodged
+            dmg_shielded = random.randint(3,6)
+
+        return shield, dmg_shielded
