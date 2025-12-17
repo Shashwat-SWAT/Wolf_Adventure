@@ -18,7 +18,7 @@ class wolf:
         
         atk_dmg = atk_dmg + crit_dmg
 
-        return atk_dmg, crit_dmg
+        return atk_dmg
     
     def dodge_n_attack(self):
         dodge_chances = random.choice([True,False]) # 50% probability
@@ -60,7 +60,7 @@ class adventurer:
         
         atk_dmg = atk_dmg + crit_dmg
 
-        return atk_dmg, crit_dmg
+        return atk_dmg
     
     def shield(self):
         shield = random.choice([True,False]) # 50% probability
@@ -71,5 +71,6 @@ class adventurer:
         
         else: # dodged
             dmg_shielded = random.randint(3,6)
+            # The dmg caused by wolf would be reduced by the number we get from this variable
 
         return shield, dmg_shielded
