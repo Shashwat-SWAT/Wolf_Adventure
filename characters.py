@@ -3,7 +3,7 @@ import random
 class wolf:
 
     def __init__(self):
-        self._hp = 35 # wolf's hit points.
+        self._hp = 40 # wolf's hit points.
 
     def _wolf_fang_passive_damage(self):
         # I am thinking of adding some buff for the attack
@@ -15,14 +15,14 @@ class wolf:
         crit_dmg = 0
 
         if crit_chance >= 7: # 40% probability
-            crit_dmg = ((atk_dmg * 40)//100) # 40% crit dmg
+            crit_dmg = ((atk_dmg * 60)//100) # 60% crit dmg
         
         atk_dmg = atk_dmg + crit_dmg
 
         return atk_dmg
     
     def dodge_n_attack(self): # This is for when user tries to shiled attack.
-        dodge_chances = random.choice([True,False]) # 50% probability of getting True
+        dodge_chances = random.choice([True,False,True]) # 66.66% probability of getting True
         dodge_n_attack_chances = random.randint(1,10) # Probability: out of 10
         dodge_attack_dmg = 0
 
@@ -30,7 +30,7 @@ class wolf:
             dodge_attack_dmg = 0
         
         else: # dodged
-            if dodge_n_attack_chances >= 5: # 60% probability
+            if dodge_n_attack_chances >= 4: # 70% probability
                 dodge_attack_dmg = random.randint(3,5)
             else:
                 dodge_attack_dmg = 0
