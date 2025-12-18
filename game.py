@@ -10,34 +10,41 @@ class GAME:
     
     def run(self):
         
-        print('The game has started, Enter A/a for attack and B/b for shielding the attack: ')
-        choice = input('Enter your choice: ')
+        print('The game has started, Enter A/a for attack and S/s for shielding the attack: ')
+        choice = input(f'Adventurer {self.get_name()}, your is choice: ')
         choice.lower()
 
         wolf0 = wolf() # character instances!
         adventurer0 = adventurer()
 
-        attack_cool_down_lis = []
-        check_three_atk_row = False
-
+        attack_cool_down_lis = [] # Checks cool down for attack! 3 attack in a row.
+        cool_down_initiate = False
+        cool_down_time = 2
+        ''' for now I just want the cool down to be for the user to
+        not be able to attack for two turns'''
 
         while wolf0.get_hp() != 0 and adventurer0.get_hp() != 0:
 
-            attack_cool_down_lis.append(choice)
+            if choice == 'a' and cool_down_initiate == False:
+                attack_cool_down_lis.append(choice)
 
-            if choice == 'a':
-                pass
+                dmg_delt_by_atk = adventurer0.attack()
+                wolf0.reduce_hp_by(dmg_delt_by_atk)
+                
             else:
-                pass
+                attack_cool_down_lis.clear()
+                
+                if cool_down_initiate == True and cool_down_time != 0:
+                    cool_down_time -= 1
+                    if cool_down_time == 0:
+                        cool_down_initiate = False
+                
+                if choice == 'a':
+                    print('sorry!')
 
             if len(attack_cool_down_lis) == 3:
-                
-                check_three_atk_row = False
-
-                for choice_made in attack_cool_down_lis:
-                    if choice_made == 'a':
-                        a_counts += 1
-                        check_three_atk_row = True
-                    else:
-                        check_three_atk_row = False
-                        break
+                cool_down_initiate = True
+            
+            print('The game has started, Enter A/a for attack and S/s for shielding the attack: ')
+            choice = input(f'Adventurer {self.get_name()}, your is choice: ')
+            choice.lower()

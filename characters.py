@@ -5,7 +5,7 @@ class wolf:
     def __init__(self):
         self._hp = 10 # wolf's hit points.
 
-    def wolf_fang_passive_damage(self):
+    def _wolf_fang_passive_damage(self):
         # I am thinking of adding some buff for the attack
         pass
 
@@ -54,7 +54,7 @@ class adventurer:
 
     '''
 
-    def good_sword_dmg_buff(self):
+    def _good_sword_dmg_buff(self):
         pass
 
     def attack(self):
