@@ -19,11 +19,11 @@ class GAME:
         print(f'''\nThe game has started, Enter A/a for attack and S/s for shielding the attack.
 Adventurer you must not attack more than 3 times in a row, if you do you will not be able to attack for 2 turns.''')
         choice = input(f'\nAdventurer {self.get_name()}, your is choice: ')
-        choice.lower()
+        choice = choice.lower()
 
         while choice != 'a' and choice != 's':
             choice = input(f'\nPlease either enter \'A/a\' or \'S/s\': ')
-            choice.lower()
+            choice = choice.lower()
 
 
         a_wolf = wolf() # character instances!
@@ -36,7 +36,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
         ''' for now I just want the cool down to be for the user to
         not be able to attack for two turns'''
 
-        while a_wolf.get_hp() >= 0 and a_adventurer.get_hp() >= 0:
+        while a_wolf.get_hp() > 0 and a_adventurer.get_hp() > 0:
             # The game runs until one of them prerishes.
 
             CLS()
@@ -136,25 +136,43 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                 "a" for 3 times.'''
             
             if a_wolf.get_hp() >= 0 and a_adventurer.get_hp() >= 0:   
-                print(f'Attack Streak: {len(attack_cool_down_lis)}')             
+                print(f'\nAttack Streak: {len(attack_cool_down_lis)}')             
                 print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()}')
 
                 if cool_down_initiate == False:    # Enters when it is not in cool down mode
-                    print('What will be your decision, A/a for attack and S/s for shielding the attack: ')
+                    print('\nWhat will be your decision, A/a for attack and S/s for shielding the attack: ')
                     choice = input(f'Adventurer {self.get_name()}, your is choice: ')
-                    choice.lower()
+                    choice = choice.lower()
 
                     while choice != 'a' and choice != 's':
                         choice = input(f'\nPlease either enter \'A/a\' or \'S/s\': ')
-                        choice.lower()
+                        choice = choice.lower()
 
                 else:
-                    print('Enter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
+                    print('\nEnter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
                     cool_down_choice = input('Enter your choice of number: ')
 
                     while not(cool_down_choice in [str(x) for x in range(1,26)]):
-                        CLS()
-                        print('Enter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
+                        print('\nPlease enter a number within 1-25.')
                         cool_down_choice = input('Enter your choice of number: ')
 
                     cool_down_choice = int(cool_down_choice) # changing the input to int after making sure.
+
+        if (a_wolf.get_hp() <= 0):
+            print('You have succesfully slain the wolf')
+        else:
+            print('You got killed, would you like to play again?')
+            play_again = input("Enter 'Y/y' if you wish to play again: ")
+            play_again = play_again.lower()
+
+            if play_again == 'y':
+
+                print('\nWould you like to change your name? ')
+                change_name = input("Enter 'Y/y' if you wish to play again: ")
+                if change_name == 'y':
+                    Diff_name = input('What would you like to be called: ')
+                    self._PlayerName = Diff_name
+
+                CLS()
+
+                self.run()
