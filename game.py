@@ -29,36 +29,39 @@ class GAME:
         not be able to attack for two turns'''
 
         while wolf0.get_hp() >= 0 and adventurer0.get_hp() >= 0:
+            # The game runs until one of them prerishes.
 
             CLS()
             
             if choice == 'a' and cool_down_initiate == False:
-                cool_down_time = 2
+                cool_down_time = 2 # redefining the cool down as it again enters attack section of code.
                 attack_cool_down_lis.append(choice)
 
-                dmg_delt_by_atk = adventurer0.attack()
-                wolf0.reduce_hp_by(dmg_delt_by_atk)
+                dmg_delt_by_atk = adventurer0.attack() # attack damage
+                wolf0.reduce_hp_by(dmg_delt_by_atk) # registering damage, reducing health
                 
             else:
                 attack_cool_down_lis.clear()
                 
-                if cool_down_initiate == True and cool_down_time != 0:
+                if cool_down_initiate == True and cool_down_time != 0: # The attack cool down.
 
                     luck_attack = random.randint(1,100)
-                    if luck_attack == 7 or luck_attack == 5 or luck_attack == 2:
-                        # Probability: 3 out of 100
+
+                    if luck_attack == 7 or luck_attack == 5 or luck_attack == 2: 
+                        # Probability: 3 out of 100 of hitting this damage
                         print('lucky!')
                         wolf0.reduce_hp_by(random.randint(1,2))
 
-                    cool_down_time -= 1
-                    if cool_down_time == 0:
+                    cool_down_time -= 1 
+                    if cool_down_time == 0: # Clearing cool down.
                         cool_down_initiate = False
-                
-                if choice == 'a':
-                    print('sorry!', cool_down_time, cool_down_initiate)
+
 
             if len(attack_cool_down_lis) == 3:
                 cool_down_initiate = True
+                ''' This means user entered "a" for 3 times in a row, because each time he enteres "s" 
+                the list is cleared but because the len of the list is 3 i would imply that the user kept entering
+                "a" for 3 times.'''
             
             if wolf0.get_hp() >= 0 and adventurer0.get_hp() >= 0:                
                 print(f'wolf hp: {wolf0.get_hp()} adventurer hp: {adventurer0.get_hp()}')
