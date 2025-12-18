@@ -3,7 +3,7 @@ import random
 class wolf:
 
     def __init__(self):
-        self._hp = 10 # wolf's hit points.
+        self._hp = 35 # wolf's hit points.
 
     def _wolf_fang_passive_damage(self):
         # I am thinking of adding some buff for the attack
@@ -46,7 +46,7 @@ class wolf:
 class adventurer:
 
     def __init__(self):
-        self._hp = 25 # Player's hit points
+        self._hp = 50 # Player's hit points
     '''
         # This is something i will integra
         self._shield_hp = 10

@@ -1,4 +1,9 @@
 from characters import wolf,adventurer
+import random
+from os import system
+
+def CLS():
+    system('cls')
 
 class GAME:
 
@@ -23,9 +28,12 @@ class GAME:
         ''' for now I just want the cool down to be for the user to
         not be able to attack for two turns'''
 
-        while wolf0.get_hp() != 0 and adventurer0.get_hp() != 0:
+        while wolf0.get_hp() >= 0 and adventurer0.get_hp() >= 0:
 
+            CLS()
+            
             if choice == 'a' and cool_down_initiate == False:
+                cool_down_time = 2
                 attack_cool_down_lis.append(choice)
 
                 dmg_delt_by_atk = adventurer0.attack()
@@ -35,16 +43,25 @@ class GAME:
                 attack_cool_down_lis.clear()
                 
                 if cool_down_initiate == True and cool_down_time != 0:
+
+                    luck_attack = random.randint(1,100)
+                    if luck_attack == 7 or luck_attack == 5 or luck_attack == 2:
+                        # Probability: 3 out of 100
+                        print('lucky!')
+                        wolf0.reduce_hp_by(random.randint(1,2))
+
                     cool_down_time -= 1
                     if cool_down_time == 0:
                         cool_down_initiate = False
                 
                 if choice == 'a':
-                    print('sorry!')
+                    print('sorry!', cool_down_time, cool_down_initiate)
 
             if len(attack_cool_down_lis) == 3:
                 cool_down_initiate = True
             
-            print('The game has started, Enter A/a for attack and S/s for shielding the attack: ')
-            choice = input(f'Adventurer {self.get_name()}, your is choice: ')
-            choice.lower()
+            if wolf0.get_hp() >= 0 and adventurer0.get_hp() >= 0:                
+                print(f'wolf hp: {wolf0.get_hp()} adventurer hp: {adventurer0.get_hp()}')
+                print('The game has started, Enter A/a for attack and S/s for shielding the attack: ')
+                choice = input(f'Adventurer {self.get_name()}, your is choice: ')
+                choice.lower()
