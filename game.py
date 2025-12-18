@@ -26,6 +26,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
         attack_cool_down_lis = [] # Checks cool down for attack! 3 attack in a row.
         cool_down_initiate = False
         cool_down_time = 2
+        cool_down_choice = 0
         ''' for now I just want the cool down to be for the user to
         not be able to attack for two turns'''
 
@@ -33,9 +34,10 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
             # The game runs until one of them prerishes.
 
             CLS()
-            wolf_choice = random.choice(['a','d'])
+            wolf_choice = random.choice(['d','d','a' ]) # wolf dodges 2 out of 3 times.
 
-            if choice == 'a' and cool_down_initiate == False:
+            if choice == 'a' and cool_down_initiate == False: # Enters when it is not in cool down mode, and user chose 'a'
+
                 cool_down_time = 2 # redefining the cool down as it again enters attack section of code.
                 attack_cool_down_lis.append(choice)
 
@@ -43,28 +45,46 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                 did_it_dodge, counter_dmg = a_wolf.dodge_n_attack()
                 throables_dmg = a_adventurer.knife_throw()
 
-                if did_it_dodge == True:
-                    if counter_dmg > 0:
-                        print(f"The wolf dodged and counter attacked! inflicting {counter_dmg} damage.")
-                        a_adventurer.reduce_hp_by(counter_dmg)
+                if wolf_choice == 'a':
+                    
+                    print('You both decided to attack, with a lot opening!')
+                    wolfs_atk = a_wolf.attack()
+
+                    a_adventurer.reduce_hp_by(wolfs_atk * 2)
+                    a_wolf.reduce_hp_by(dmg_delt_by_atk * 4)
+
+                    if (dmg_delt_by_atk * 4) > (wolfs_atk * 2):
+                        print(f'You managed to deal {dmg_delt_by_atk * 4}, while wolf only inflicted {wolfs_atk * 2} damage.')
+                    elif (dmg_delt_by_atk * 4) == (wolfs_atk * 2):
+                        print(f'You both caused {dmg_delt_by_atk * 4} damage to each other.')
                     else:
-                        if throables_dmg > 0:
-                            print(f'The wolf dodged your attack, but you managed to inflict {throables_dmg} damage using a throable knife')
-                            a_wolf.reduce_hp_by(throables_dmg)
-                        else:
-                            print('The wolf dodged both of your attack, and didn\'t counter attack.')
+                        print(f'The wolf caused {wolfs_atk * 2} damage, but you only caused {dmg_delt_by_atk * 4} damage to the wolf.')
 
                 else:
-                    print(f"The wolf couldn't dodge your attack. It caused {dmg_delt_by_atk} damage")
-                    a_wolf.reduce_hp_by(dmg_delt_by_atk) # registering damage, reducing health
+
+                    if did_it_dodge == True:
+                        if counter_dmg > 0:
+                            print(f"The wolf dodged and counter attacked! inflicting {counter_dmg} damage.")
+                            a_adventurer.reduce_hp_by(counter_dmg)
+                        else:
+                            if throables_dmg > 0:
+                                print(f'The wolf dodged your attack, but you managed to inflict {throables_dmg} damage using a throable knife')
+                                a_wolf.reduce_hp_by(throables_dmg)
+                            else:
+                                print('The wolf dodged both of your attack, and didn\'t counter attack.')
+
+                    else:
+                        print(f"The wolf couldn't dodge your attack. It caused {dmg_delt_by_atk} damage")
+                        a_wolf.reduce_hp_by(dmg_delt_by_atk) # registering damage, reducing health
                 
-            else:
+            else: # Enter user chose 'b'
+
                 attack_cool_down_lis.clear()
 
                 if cool_down_initiate == True and cool_down_time != 0: # The attack cool down.
-                    luck_attack = random.randint(1,100)
+                    luck_attack = random.randint(1,25)
 
-                    if luck_attack == 7 or luck_attack == 5 or luck_attack == 2: 
+                    if luck_attack == cool_down_choice: 
                         # Probability: 3 out of 100 of hitting this damage
                         minor_dmg = random.randint(1,2)
                         print(f'lucky! you managed to inflict {minor_dmg} while it was about to attack you!')
@@ -81,7 +101,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                     if cool_down_time == 0: # Clearing cool down.
                         cool_down_initiate = False
 
-                else:
+                else: # Enters only if there is no attack cool down.
 
                     if wolf_choice == 'a':
                         shieled_the_attack, shielded_dmg = a_adventurer.shield()
@@ -112,6 +132,18 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
             if a_wolf.get_hp() >= 0 and a_adventurer.get_hp() >= 0:   
                 print(f'Attack Streak: {len(attack_cool_down_lis)}')             
                 print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()}')
-                print('What will be your decision, A/a for attack and S/s for shielding the attack: ')
-                choice = input(f'Adventurer {self.get_name()}, your is choice: ')
-                choice.lower()
+
+                if cool_down_initiate == False:    # Enters when it is not in cool down mode
+                    print('What will be your decision, A/a for attack and S/s for shielding the attack: ')
+                    choice = input(f'Adventurer {self.get_name()}, your is choice: ')
+                    choice.lower()
+                else:
+                    print('Enter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
+                    cool_down_choice = input('Enter your choice of number: ')
+
+                    while not(cool_down_choice in [str(x) for x in range(1,26)]):
+                        CLS()
+                        print('Enter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
+                        cool_down_choice = input('Enter your choice of number: ')
+
+                    cool_down_choice = int(cool_down_choice) # changing the input to int after making sure.
