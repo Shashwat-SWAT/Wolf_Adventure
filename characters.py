@@ -14,15 +14,15 @@ class wolf:
         atk_dmg = random.randint(4,6)
         crit_dmg = 0
 
-        if crit_chance >= 5: # 60% probability
+        if crit_chance >= 7: # 40% probability
             crit_dmg = ((atk_dmg * 40)//100) # 40% crit dmg
         
         atk_dmg = atk_dmg + crit_dmg
 
         return atk_dmg
     
-    def dodge_n_attack(self):
-        dodge_chances = random.choice([True,False]) # 50% probability
+    def dodge_n_attack(self): # This is for when user tries to shiled attack.
+        dodge_chances = random.choice([True,False,False]) # 33.33% probability of getting True
         dodge_n_attack_chances = random.randint(1,10) # Probability: out of 10
         dodge_attack_dmg = 0
 
@@ -81,6 +81,14 @@ class adventurer:
             # The dmg caused by wolf would be reduced by the number we get from this variable
 
         return shielded_atk, dmg_shielded
+    
+    def knife_throw(self):
+        probability_of_throw = random.choice([True, False, False]) # 33.33% probability of getting True
+        knife_dmg = 0
+        if probability_of_throw:
+            knife_dmg = random.randint(1,3)
+        return knife_dmg
+
     
     def reduce_hp_by(self, dmg_taken):
         self._hp = self._hp - dmg_taken

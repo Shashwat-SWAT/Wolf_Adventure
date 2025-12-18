@@ -19,8 +19,8 @@ class GAME:
         choice = input(f'Adventurer {self.get_name()}, your is choice: ')
         choice.lower()
 
-        wolf0 = wolf() # character instances!
-        adventurer0 = adventurer()
+        a_wolf = wolf() # character instances!
+        a_adventurer = adventurer()
 
         attack_cool_down_lis = [] # Checks cool down for attack! 3 attack in a row.
         cool_down_initiate = False
@@ -28,21 +28,38 @@ class GAME:
         ''' for now I just want the cool down to be for the user to
         not be able to attack for two turns'''
 
-        while wolf0.get_hp() >= 0 and adventurer0.get_hp() >= 0:
+        while a_wolf.get_hp() >= 0 and a_adventurer.get_hp() >= 0:
             # The game runs until one of them prerishes.
 
             CLS()
-            
+            wolf_choice = random.choice(['a','d'])
+
             if choice == 'a' and cool_down_initiate == False:
                 cool_down_time = 2 # redefining the cool down as it again enters attack section of code.
                 attack_cool_down_lis.append(choice)
 
-                dmg_delt_by_atk = adventurer0.attack() # attack damage
-                wolf0.reduce_hp_by(dmg_delt_by_atk) # registering damage, reducing health
+                dmg_delt_by_atk = a_adventurer.attack() # attack damage
+                did_it_dodge, counter_dmg = a_wolf.dodge_n_attack()
+                throables_dmg = a_adventurer.knife_throw()
+
+                if did_it_dodge == True:
+                    if counter_dmg > 0:
+                        print(f"The wolf dodged and counter attacked! inflicting {counter_dmg} damage.")
+                        a_adventurer.reduce_hp_by(counter_dmg)
+                    else:
+                        if throables_dmg > 0:
+                            print(f'The wolf dodged your attack, but you managed to inflict {throables_dmg} damage using a throable knife')
+                            a_wolf.reduce_hp_by(throables_dmg)
+                        else:
+                            print('The wolf dodged both of your attack, and didn\'t counter attack.')
+
+                else:
+                    print(f"The wolf couldn't dodge your attack. It caused {a_wolf.reduce_hp_by(dmg_delt_by_atk)} damage")
+                    a_wolf.reduce_hp_by(dmg_delt_by_atk) # registering damage, reducing health
                 
             else:
                 attack_cool_down_lis.clear()
-                
+
                 if cool_down_initiate == True and cool_down_time != 0: # The attack cool down.
 
                     luck_attack = random.randint(1,100)
@@ -50,12 +67,31 @@ class GAME:
                     if luck_attack == 7 or luck_attack == 5 or luck_attack == 2: 
                         # Probability: 3 out of 100 of hitting this damage
                         print('lucky!')
-                        wolf0.reduce_hp_by(random.randint(1,2))
+                        a_wolf.reduce_hp_by(random.randint(1,2))
 
                     cool_down_time -= 1 
                     if cool_down_time == 0: # Clearing cool down.
                         cool_down_initiate = False
 
+                if wolf_choice == 'a':
+                    shieled_the_attack, shielded_dmg = a_adventurer.shield()
+                    wolf_atk_dmg = a_wolf.attack()
+
+                    if shieled_the_attack:
+                        if wolf_atk_dmg > shielded_dmg:
+                            dmg_taken_by_adventurer = wolf_atk_dmg - shielded_dmg
+                            print(f'The managed to inflict {dmg_delt_by_atk} damage.')
+                            a_adventurer.reduce_hp_by(dmg_taken_by_adventurer)
+                        else:
+                            print('The adventurer managed to shield the attack completely.')
+
+                    else:
+                        print("you couldn't shield the attack at all")
+                        print(f"Wolf caused {wolf_atk_dmg} damage to your hp.")
+                        a_adventurer.reduce_hp_by(wolf_atk_dmg)
+                
+                else:
+                    print("you both decided to not attack.")
 
             if len(attack_cool_down_lis) == 3:
                 cool_down_initiate = True
@@ -63,8 +99,8 @@ class GAME:
                 the list is cleared but because the len of the list is 3 i would imply that the user kept entering
                 "a" for 3 times.'''
             
-            if wolf0.get_hp() >= 0 and adventurer0.get_hp() >= 0:                
-                print(f'wolf hp: {wolf0.get_hp()} adventurer hp: {adventurer0.get_hp()}')
+            if a_wolf.get_hp() >= 0 and a_adventurer.get_hp() >= 0:                
+                print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()}')
                 print('The game has started, Enter A/a for attack and S/s for shielding the attack: ')
                 choice = input(f'Adventurer {self.get_name()}, your is choice: ')
                 choice.lower()
