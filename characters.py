@@ -1,6 +1,7 @@
 import random
 
 class wolf:
+
     def __init__(self):
         self._hp = 10 # wolf's hit points.
 
@@ -35,6 +36,12 @@ class wolf:
                 dodge_attack_dmg = 0
 
         return dodge_chances, dodge_attack_dmg
+    
+    def reduce_hp_by(self, dmg_taken):
+        self._hp = self._hp - dmg_taken
+
+    def get_hp(self):
+        return self._hp
 
 class adventurer:
 
@@ -63,14 +70,20 @@ class adventurer:
         return atk_dmg
     
     def shield(self):
-        shield = random.choice([True,False]) # 50% probability
+        shielded_atk = random.choice([True,False]) # 50% probability
         dmg_shielded = 0
 
-        if shield == False: # didn't dodge
+        if shielded_atk == False: # didn't dodge
             dmg_shielded = 0
         
         else: # dodged
             dmg_shielded = random.randint(3,6)
             # The dmg caused by wolf would be reduced by the number we get from this variable
 
-        return shield, dmg_shielded
+        return shielded_atk, dmg_shielded
+    
+    def reduce_hp_by(self, dmg_taken):
+        self._hp = self._hp - dmg_taken
+
+    def get_hp(self):
+        return self._hp
