@@ -57,14 +57,14 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                     wolfs_atk = a_wolf.attack()
 
                     a_adventurer.reduce_hp_by(wolfs_atk * 2)
-                    a_wolf.reduce_hp_by(dmg_delt_by_atk * 4)
+                    a_wolf.reduce_hp_by(dmg_delt_by_atk * 3)
 
-                    if (dmg_delt_by_atk * 4) > (wolfs_atk * 2):
-                        print(f'You managed to deal {dmg_delt_by_atk * 4}, while wolf only inflicted {wolfs_atk * 2} damage.')
-                    elif (dmg_delt_by_atk * 4) == (wolfs_atk * 2):
-                        print(f'You both caused {dmg_delt_by_atk * 4} damage to each other.')
+                    if (dmg_delt_by_atk * 3) > (wolfs_atk * 2):
+                        print(f'You managed to deal {dmg_delt_by_atk * 3}, while wolf only inflicted {wolfs_atk * 2} damage.')
+                    elif (dmg_delt_by_atk * 3) == (wolfs_atk * 2):
+                        print(f'You both caused {dmg_delt_by_atk * 3} damage to each other.')
                     else:
-                        print(f'The wolf caused {wolfs_atk * 3} damage, but you only caused {dmg_delt_by_atk * 4} damage to the wolf.')
+                        print(f'The wolf caused {wolfs_atk * 2} damage, but you only caused {dmg_delt_by_atk * 3} damage to the wolf.')
 
                 else:
 
@@ -174,6 +174,24 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                 CLS()
 
                 self.run()
+
+        if (a_wolf.get_hp() <= 0 and a_adventurer.get_hp() <= 0):
+            print('You both have died in this battle, would you like to play again?')
+            play_again = input("Enter 'Y/y' if you wish to play again: ")
+            play_again = play_again.lower()
+
+            if play_again == 'y':
+
+                print('\nWould you like to change your name? ')
+                change_name = input("Enter 'Y/y' if you wish to play again: ")
+                if change_name == 'y':
+                    Diff_name = input('What would you like to be called: ')
+                    self._PlayerName = Diff_name
+
+                CLS()
+
+                self.run()
+
         else:
             print('You got killed, would you like to play again?')
             play_again = input("Enter 'Y/y' if you wish to play again: ")
