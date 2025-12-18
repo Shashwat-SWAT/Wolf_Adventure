@@ -40,7 +40,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
             # The game runs until one of them prerishes.
 
             CLS()
-            wolf_choice = random.choice(['d','d','a' ]) # wolf dodges 2 out of 3 times.
+            wolf_choice = random.choice(['d','a']) # wolf dodge % = 50%
 
             if choice == 'a' and cool_down_initiate == False: # Enters when it is not in cool down mode, and user chose 'a'
 
@@ -87,7 +87,9 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
 
                 attack_cool_down_lis.clear()
 
-                if cool_down_initiate == True and cool_down_time != 0: # The attack cool down.
+                # Program primarily looks at attack cool down, if it is initiated then goes in this loop
+
+                if cool_down_initiate == True and cool_down_time != 0: 
                     luck_attack = random.choices([x for x in range(1,101)], k=3)
 
                     if cool_down_choice in luck_attack: 
@@ -107,7 +109,9 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                     if cool_down_time == 0: # Clearing cool down.
                         cool_down_initiate = False
 
-                else: # Enters only if there is no attack cool down.
+                # Enters only if there is no attack cool down initiation.
+
+                else:
 
                     if wolf_choice == 'a':
                         shieled_the_attack, shielded_dmg = a_adventurer.shield()
@@ -135,6 +139,8 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                 the list is cleared but because the len of the list is 3 i would imply that the user kept entering
                 "a" for 3 times.'''
             
+            # ---------- Printing menu ---------- #
+
             if a_wolf.get_hp() > 0 and a_adventurer.get_hp() > 0:   
                 print(f'\nAttack Streak: {len(attack_cool_down_lis)}')             
                 print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()}')
@@ -158,22 +164,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
 
                     cool_down_choice = int(cool_down_choice) # changing the input to int after making sure.
 
-        if (a_wolf.get_hp() <= 0):
-            print('You have succesfully slain the wolf, would you like to play again?')
-            play_again = input("Enter 'Y/y' if you wish to play again: ")
-            play_again = play_again.lower()
-
-            if play_again == 'y':
-
-                print('\nWould you like to change your name? ')
-                change_name = input("Enter 'Y/y' if you wish to play again: ")
-                if change_name == 'y':
-                    Diff_name = input('What would you like to be called: ')
-                    self._PlayerName = Diff_name
-
-                CLS()
-
-                self.run()
+        # ---------- Winning Condition ---------- #
 
         if (a_wolf.get_hp() <= 0 and a_adventurer.get_hp() <= 0):
             print('You both have died in this battle, would you like to play again?')
@@ -181,30 +172,25 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
             play_again = play_again.lower()
 
             if play_again == 'y':
-
-                print('\nWould you like to change your name? ')
-                change_name = input("Enter 'Y/y' if you wish to play again: ")
-                if change_name == 'y':
-                    Diff_name = input('What would you like to be called: ')
-                    self._PlayerName = Diff_name
-
                 CLS()
-
                 self.run()
 
-        else:
-            print('You got killed, would you like to play again?')
+        elif (a_wolf.get_hp() <= 0 and a_adventurer.get_hp() > 0):
+            print('You have succesfully slain the wolf, would you like to play again?')
+            print(f'Your remaining hp: {a_adventurer.get_hp()}')
             play_again = input("Enter 'Y/y' if you wish to play again: ")
             play_again = play_again.lower()
 
             if play_again == 'y':
-
-                print('\nWould you like to change your name? ')
-                change_name = input("Enter 'Y/y' if you wish to play again: ")
-                if change_name == 'y':
-                    Diff_name = input('What would you like to be called: ')
-                    self._PlayerName = Diff_name
-
                 CLS()
+                self.run()
 
+        else:
+            print('You got killed, would you like to play again?')
+            print(f'Wolf\'s remaining hp: {a_wolf.get_hp()}')
+            play_again = input("Enter 'Y/y' if you wish to play again: ")
+            play_again = play_again.lower()
+
+            if play_again == 'y':
+                CLS()
                 self.run()
