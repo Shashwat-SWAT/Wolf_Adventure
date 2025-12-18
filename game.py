@@ -64,7 +64,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                     elif (dmg_delt_by_atk * 4) == (wolfs_atk * 2):
                         print(f'You both caused {dmg_delt_by_atk * 4} damage to each other.')
                     else:
-                        print(f'The wolf caused {wolfs_atk * 2} damage, but you only caused {dmg_delt_by_atk * 4} damage to the wolf.')
+                        print(f'The wolf caused {wolfs_atk * 3} damage, but you only caused {dmg_delt_by_atk * 4} damage to the wolf.')
 
                 else:
 
