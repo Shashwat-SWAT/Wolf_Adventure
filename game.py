@@ -21,6 +21,11 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
         choice = input(f'\nAdventurer {self.get_name()}, your is choice: ')
         choice.lower()
 
+        while choice != 'a' and choice != 's':
+            choice = input(f'\nPlease either enter \'A/a\' or \'S/s\': ')
+            choice.lower()
+
+
         a_wolf = wolf() # character instances!
         a_adventurer = adventurer()
 
@@ -138,6 +143,11 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                     print('What will be your decision, A/a for attack and S/s for shielding the attack: ')
                     choice = input(f'Adventurer {self.get_name()}, your is choice: ')
                     choice.lower()
+
+                    while choice != 'a' and choice != 's':
+                        choice = input(f'\nPlease either enter \'A/a\' or \'S/s\': ')
+                        choice.lower()
+
                 else:
                     print('Enter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
                     cool_down_choice = input('Enter your choice of number: ')
