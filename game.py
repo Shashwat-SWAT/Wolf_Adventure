@@ -15,6 +15,7 @@ class GAME:
     
     def run(self):
         
+        CLS()
         print(f'''\nThe game has started, Enter A/a for attack and S/s for shielding the attack.
 Adventurer you must not attack more than 3 times in a row, if you do you will not be able to attack for 2 turns.''')
         choice = input(f'\nAdventurer {self.get_name()}, your is choice: ')
