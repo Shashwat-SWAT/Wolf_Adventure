@@ -58,11 +58,11 @@ class adventurer:
         pass
 
     def attack(self):
-        crit_chance = random.randint(1,10) # Probability: out of 10
+        crit_chance = random.randint(1,40) # Probability: out of 40
         atk_dmg = random.randint(2,4)
         crit_dmg = 0
 
-        if crit_chance >= 9: # 20% probability
+        if crit_chance >= 39: # 5% probability
             crit_dmg = ((atk_dmg * 60)//100) # 60% crit dmg
         
         atk_dmg = atk_dmg + crit_dmg
