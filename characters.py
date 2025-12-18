@@ -22,7 +22,7 @@ class wolf:
         return atk_dmg
     
     def dodge_n_attack(self): # This is for when user tries to shiled attack.
-        dodge_chances = random.choice([True,False,False]) # 33.33% probability of getting True
+        dodge_chances = random.choice([True,False]) # 50% probability of getting True
         dodge_n_attack_chances = random.randint(1,10) # Probability: out of 10
         dodge_attack_dmg = 0
 
@@ -30,8 +30,8 @@ class wolf:
             dodge_attack_dmg = 0
         
         else: # dodged
-            if dodge_n_attack_chances >= 7: # 40% probability
-                dodge_attack_dmg = random.randint(1,3)
+            if dodge_n_attack_chances >= 5: # 60% probability
+                dodge_attack_dmg = random.randint(3,5)
             else:
                 dodge_attack_dmg = 0
 

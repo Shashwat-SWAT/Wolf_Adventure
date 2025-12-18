@@ -1,6 +1,4 @@
-from characters import wolf, adventurer
 from game import GAME
-import random
 
 def main():
 
