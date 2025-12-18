@@ -88,10 +88,10 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                 attack_cool_down_lis.clear()
 
                 if cool_down_initiate == True and cool_down_time != 0: # The attack cool down.
-                    luck_attack = random.randint(1,25)
+                    luck_attack = random.choices([x for x in range(1,101)], k=3)
 
-                    if luck_attack == cool_down_choice: 
-                        # Probability: 3 out of 100 of hitting this damage
+                    if cool_down_choice in luck_attack: 
+                        # Probability: 3 out of 100 of hitting this damage (maximum)
                         minor_dmg = random.randint(1,2)
                         print(f'lucky! you managed to inflict {minor_dmg} while it was about to attack you!')
                         a_wolf.reduce_hp_by(minor_dmg)
@@ -135,7 +135,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                 the list is cleared but because the len of the list is 3 i would imply that the user kept entering
                 "a" for 3 times.'''
             
-            if a_wolf.get_hp() >= 0 and a_adventurer.get_hp() >= 0:   
+            if a_wolf.get_hp() > 0 and a_adventurer.get_hp() > 0:   
                 print(f'\nAttack Streak: {len(attack_cool_down_lis)}')             
                 print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()}')
 
@@ -149,17 +149,31 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                         choice = choice.lower()
 
                 else:
-                    print('\nEnter a number within 1-25, if you are lucky you might attack the wolf even though you are in attack cool down.')
+                    print('\nEnter a number within 1-100, if you are lucky you might attack the wolf even though you are in attack cool down.')
                     cool_down_choice = input('Enter your choice of number: ')
 
-                    while not(cool_down_choice in [str(x) for x in range(1,26)]):
-                        print('\nPlease enter a number within 1-25.')
+                    while not(cool_down_choice in [str(x) for x in range(1,101)]):
+                        print('\nPlease enter a number within 1-100.')
                         cool_down_choice = input('Enter your choice of number: ')
 
                     cool_down_choice = int(cool_down_choice) # changing the input to int after making sure.
 
         if (a_wolf.get_hp() <= 0):
-            print('You have succesfully slain the wolf')
+            print('You have succesfully slain the wolf, would you like to play again?')
+            play_again = input("Enter 'Y/y' if you wish to play again: ")
+            play_again = play_again.lower()
+
+            if play_again == 'y':
+
+                print('\nWould you like to change your name? ')
+                change_name = input("Enter 'Y/y' if you wish to play again: ")
+                if change_name == 'y':
+                    Diff_name = input('What would you like to be called: ')
+                    self._PlayerName = Diff_name
+
+                CLS()
+
+                self.run()
         else:
             print('You got killed, would you like to play again?')
             play_again = input("Enter 'Y/y' if you wish to play again: ")
