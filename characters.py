@@ -38,7 +38,7 @@ class wolf:
         return dodge_chances, dodge_attack_dmg
     
     def reduce_hp_by(self, dmg_taken):
-        self._hp = self._hp - dmg_taken
+        self._hp -= dmg_taken
 
     def get_hp(self):
         return self._hp
@@ -47,15 +47,25 @@ class adventurer:
 
     def __init__(self):
         self._hp = 50 # Player's hit points
+        self._shield_hp = 10
     '''
         # This is something i will integra
-        self._shield_hp = 10
         self._sword_hp = 10
 
     '''
 
     def _good_sword_dmg_buff(self):
-        pass
+        
+        if self._shield_hp > 8:
+            return 5
+        elif self._shield_hp > 6:
+            return 4
+        elif self._shield_hp > 4:
+            return 3
+        elif self._shield_hp > 0:
+            return 2
+        else:
+            return 0
 
     def attack(self):
         crit_chance = random.randint(1,40) # Probability: out of 40
@@ -73,11 +83,11 @@ class adventurer:
         shielded_atk = random.choice([True,False]) # 50% probability
         dmg_shielded = 0
 
-        if shielded_atk == False: # didn't dodge
+        if shielded_atk == False: # didn't shield
             dmg_shielded = 0
         
-        else: # dodged
-            dmg_shielded = random.randint(3,6)
+        else: # shieled
+            dmg_shielded = random.randint(3,6) + self._good_sword_dmg_buff()
             # The dmg caused by wolf would be reduced by the number we get from this variable
 
         return shielded_atk, dmg_shielded
@@ -86,12 +96,21 @@ class adventurer:
         probability_of_throw = random.choice([True, False, False]) # 33.33% probability of getting True
         knife_dmg = 0
         if probability_of_throw:
-            knife_dmg = random.randint(1,3)
+            knife_dmg = random.randint(2,4)
         return knife_dmg
-
     
     def reduce_hp_by(self, dmg_taken):
-        self._hp = self._hp - dmg_taken
+        self._hp -= dmg_taken
+
+    def reduce_shield_hp_by(self, dmg_taken):
+        self._shield_hp -= dmg_taken
 
     def get_hp(self):
         return self._hp
+    
+    def get_shield_hp(self):
+        return self._shield_hp
+    
+    def recover_shield(self):
+        recovery_points = random.randint(0,1)
+        self._shield_hp += recovery_points

@@ -120,10 +120,25 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                         if shieled_the_attack:
                             if wolf_atk_dmg > shielded_dmg:
                                 dmg_taken_by_adventurer = wolf_atk_dmg - shielded_dmg
-                                print(f'The managed to inflict {dmg_delt_by_atk} damage.')
+                                print(f'The wolf managed to inflict {dmg_taken_by_adventurer} damage.')
                                 a_adventurer.reduce_hp_by(dmg_taken_by_adventurer)
                             else:
-                                print('The adventurer managed to shield the attack completely.')
+                                print('The adventurer managed to shield the attack completely', end='')
+                                
+                                chances_damaging_shield = random.choice([True, False])
+                                if not(chances_damaging_shield):
+                                    caused_shielded_dmg = random.randint(1,3)
+                                    print(f', but wolf caused {caused_shielded_dmg} damage to the shield')
+                                    a_adventurer.reduce_shield_hp_by(caused_shielded_dmg)
+                                else:
+                                    pre_shield_hp = a_adventurer.get_shield_hp()
+                                    if a_adventurer.get_shield_hp() < 15:
+                                        a_adventurer.recover_shield()
+                                    post_shield_hp = a_adventurer.get_shield_hp()
+                                    if post_shield_hp>pre_shield_hp:
+                                        print(', and also managed to repair the shield')
+                                    else:
+                                        print('.')
 
                         else:
                             print("you couldn't shield the attack at all")
@@ -131,7 +146,12 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                             a_adventurer.reduce_hp_by(wolf_atk_dmg)
                     
                     else:
-                        print("you both decided to not attack.")
+                        knife_throw = a_adventurer.knife_throw()
+                        if knife_throw > 0: # 50% chance of throwing the knife at wolf.    
+                            print(f'You saw the oppertuinity and attacked teh wolf with a throable knife. It did {knife_throw} damage.')
+                            a_wolf.reduce_hp_by(knife_throw)
+                        else:
+                            print('You both decided to do nothing.')
 
             if len(attack_cool_down_lis) == 3:
                 cool_down_initiate = True
@@ -143,7 +163,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
 
             if a_wolf.get_hp() > 0 and a_adventurer.get_hp() > 0:   
                 print(f'\nAttack Streak: {len(attack_cool_down_lis)}')             
-                print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()}')
+                print(f'wolf hp: {a_wolf.get_hp()} adventurer hp: {a_adventurer.get_hp()} shield hp: {a_adventurer.get_shield_hp()}')
 
                 if cool_down_initiate == False:    # Enters when it is not in cool down mode
                     print('\nWhat will be your decision, A/a for attack and S/s for shielding the attack: ')
