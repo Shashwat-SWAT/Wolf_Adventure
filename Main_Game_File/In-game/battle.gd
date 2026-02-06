@@ -161,7 +161,6 @@ func win_or_lose_cond():
 		await (self.text_box_closed)
 		$"AnimationPlayer".play("Enemy_died")
 		await($AnimationPlayer.animation_finished)
-		await (get_tree().create_timer(0.25).timeout)
 		get_tree().quit()
 
 		
@@ -170,7 +169,6 @@ func win_or_lose_cond():
 		await (self.text_box_closed)
 		$"AnimationPlayer".play("Player_died")
 		await($AnimationPlayer.animation_finished)
-		await (get_tree().create_timer(0.25).timeout)
 		get_tree().quit()
 		
 	else:
