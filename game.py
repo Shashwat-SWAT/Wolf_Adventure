@@ -148,7 +148,7 @@ Adventurer you must not attack more than 3 times in a row, if you do you will no
                     else:
                         knife_throw = a_adventurer.knife_throw()
                         if knife_throw > 0: # 50% chance of throwing the knife at wolf.    
-                            print(f'You saw the oppertuinity and attacked teh wolf with a throable knife. It did {knife_throw} damage.')
+                            print(f'You saw the oppertuinity and attacked the wolf with a throable knife. It did {knife_throw} damage.')
                             a_wolf.reduce_hp_by(knife_throw)
                         else:
                             print('You both decided to do nothing.')
