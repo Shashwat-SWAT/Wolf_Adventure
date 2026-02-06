@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c3h4obu062bme"]
+
+[ext_resource type="Script" path="res://In-game/BaseEnemy.gd" id="1_bbkf3"]
+[ext_resource type="Texture2D" uid="uid://en5jkvgvqo3p" path="res://Assest/sprite/wolf_300.png" id="2_0eyyc"]
+
+[resource]
+script = ExtResource("1_bbkf3")
+name = "Wolf"
+texture = ExtResource("2_0eyyc")
+health = 40
+min_base_atk_dmg = 4
+max_base_atk_dmg = 7
+min_counter_dmg = 6
+max_counter_dmg = 8

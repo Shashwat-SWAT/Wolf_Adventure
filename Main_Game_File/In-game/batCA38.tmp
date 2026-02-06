@@ -1,0 +1,325 @@
+[gd_scene load_steps=16 format=3 uid="uid://b5lxq51jairil"]
+
+[ext_resource type="Texture2D" uid="uid://cufe1tb1c5gpk" path="res://Assest/sprite/Background.jpg" id="1_e3txf"]
+[ext_resource type="Script" path="res://In-game/battle.gd" id="1_oo3q3"]
+[ext_resource type="FontFile" uid="uid://c042gke5r6x00" path="res://Assest/fonts/PixelOperator8-Bold.ttf" id="2_2gfib"]
+[ext_resource type="Texture2D" uid="uid://en5jkvgvqo3p" path="res://Assest/sprite/wolf_300.png" id="2_yv5lb"]
+[ext_resource type="FontFile" uid="uid://bfpa3a4hy6ksi" path="res://Assest/fonts/PixelOperator8.ttf" id="4_wq3eg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i34n"]
+bg_color = Color(0.792157, 0.25098, 0, 1)
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.14902, 0.156863, 0.203922, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_861j7"]
+bg_color = Color(0.266667, 0.580392, 0.301961, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(0.14902, 0.156863, 0.203922, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="FontVariation" id="FontVariation_jlxek"]
+base_font = ExtResource("2_2gfib")
+spacing_top = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wko5o"]
+bg_color = Color(0, 0, 0, 0.654902)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="FontVariation" id="FontVariation_2fdn4"]
+base_font = ExtResource("2_2gfib")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mabef"]
+bg_color = Color(0, 0, 0, 0.490196)
+border_width_left = 7
+border_width_top = 5
+border_width_right = 7
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 0.662745)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8eosp"]
+bg_color = Color(0.172549, 0.223529, 0.254902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.219608, 0.439216, 0.32549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cica"]
+bg_color = Color(0.14902, 0.156863, 0.203922, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.113725, 0.247059, 0.25098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_npk1g"]
+bg_color = Color(0, 0, 0, 0.654902)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5gfhf"]
+bg_color = Color(0.0901961, 0.0980392, 0.145098, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0.339512, 0.606667, 0.562134, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="The battle scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oo3q3")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1264.0
+offset_bottom = 649.0
+texture = ExtResource("1_e3txf")
+
+[node name="Wolf\'s box" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 483.0
+offset_top = 282.0
+offset_right = -369.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HP bar" type="ProgressBar" parent="Wolf\'s box"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_5i34n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_861j7")
+max_value = 40.0
+step = 1.0
+value = 20.0
+show_percentage = false
+
+[node name="HP" type="Label" parent="Wolf\'s box/HP bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.0901961, 0.0980392, 0.145098, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = SubResource("FontVariation_jlxek")
+text = "HP: 20/40"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wolf" type="TextureRect" parent="Wolf\'s box"]
+layout_mode = 2
+texture = ExtResource("2_yv5lb")
+
+[node name="Adventurer panal" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.846
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.208008
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wko5o")
+
+[node name="Adventurer\'s box" type="HBoxContainer" parent="Adventurer panal"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="Adventurer" type="Label" parent="Adventurer panal/Adventurer\'s box"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_2fdn4")
+theme_override_font_sizes/font_size = 20
+text = "Adventurer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HP bar" type="ProgressBar" parent="Adventurer panal/Adventurer\'s box"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_5i34n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_861j7")
+max_value = 50.0
+step = 1.0
+value = 25.0
+show_percentage = false
+
+[node name="HP" type="Label" parent="Adventurer panal/Adventurer\'s box/HP bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.0901961, 0.0980392, 0.145098, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = SubResource("FontVariation_jlxek")
+text = "HP: 25/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit_panal" type="Panel" parent="Adventurer panal/Adventurer\'s box"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_mabef")
+
+[node name="Exit_box" type="HBoxContainer" parent="Adventurer panal/Adventurer\'s box/Exit_panal"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Exit_lable" type="Label" parent="Adventurer panal/Adventurer\'s box/Exit_panal/Exit_box"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2gfib")
+text = "click in the 'x' to
+   exit the game: "
+
+[node name="Exit" type="Button" parent="Adventurer panal/Adventurer\'s box/Exit_panal/Exit_box"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_2gfib")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_8eosp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8eosp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4cica")
+text = "X"
+
+[node name="Adventurer\'s actions" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.154
+offset_bottom = 0.207993
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_npk1g")
+
+[node name="Actions" type="HBoxContainer" parent="Adventurer\'s actions"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button" type="Button" parent="Adventurer\'s actions/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_2gfib")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_8eosp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8eosp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4cica")
+text = "ATTACK"
+
+[node name="Button2" type="Button" parent="Adventurer\'s actions/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_2gfib")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_8eosp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8eosp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4cica")
+text = "SHIELD"
+
+[node name="Display_Text" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5gfhf")
+
+[node name="Pop up message" type="Label" parent="Display_Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_wq3eg")
+theme_override_font_sizes/font_size = 20
+text = "A wolf has appeared!"
+
+[node name="Skip click" type="Label" parent="Display_Text"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.968
+anchor_top = 0.664
+anchor_right = 0.987
+anchor_bottom = 1.0
+offset_left = 0.263916
+offset_right = -1.67407
+offset_bottom = -11.0
+theme_override_fonts/font = ExtResource("4_wq3eg")
+theme_override_font_sizes/font_size = 34
+text = ">"
+
+[connection signal="pressed" from="Adventurer panal/Adventurer\'s box/Exit_panal/Exit_box/Exit" to="." method="_on_exit_pressed"]
